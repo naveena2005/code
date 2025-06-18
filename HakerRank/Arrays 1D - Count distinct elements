@@ -1,0 +1,19 @@
+Arrays 1D - Count distinct elements
+Harish and Rajesh were developing a plan to find the ideal woman for Sheldon Cooper. There were puzzles, translations, and questions to check a person's intelligence. One such question was to come up with a program to count the number of distinct elements in an array. Harini is a postdoctoral researcher and a former graduate student of Caltech who is a huge fan of Sheldon's work and she wanted to impress Sheldon by writing a program to count the number of distinct element in an array. Can you help Harini?
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        HashSet<Integer> h=new HashSet<>();
+        for(int i=0;i<n;i++){
+            h.add(sc.nextInt());
+        }
+        System.out.print("There are " + h.size()+" distinct element in the array.");
+    }
+}
