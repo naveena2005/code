@@ -1,0 +1,44 @@
+LEETCODE 438. Find All Anagrams in a String
+
+You are developing a search feature that needs to detect if any substrings in a given text are
+anagrams of a smaller target word. An anagram is a rearrangement of the letters of a word
+or phrase to produce a new word or phrase, using all the original letters exactly once.
+Your task is to write a program that takes two strings s and p, and returns all starting
+indices in s where an anagram of p begins. You can return the result in any order.
+
+Sample Input 0
+s = "cbaebabacd"
+p = "abc"
+Sample Output 0
+[0, 6]
+Explanation 0
+The anagrams of "abc" are "abc", "acb", "bac", "bca", "cab", and "cba".
+● At index 0, substring "cba" is an anagram of "abc".
+● At index 6, substring "bac" is also an anagram of "abc".
+
+CODING
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> res = new ArrayList<>();
+        if(p.length()>s.length())return res;
+        Map<Character,Integer> sm=new HashMap<>();
+        Map<Character,Integer> pm=new HashMap<>();
+        for(int i=0;i<p.length();i++){
+            pm.put(p.charAt(i),pm.getOrDefault(p.charAt(i),0)+1);
+            sm.put(s.charAt(i),sm.getOrDefault(s.charAt(i),0)+1);
+        }
+        if(sm.equals(pm))res.add(0);
+        int l=0,r=p.length();
+        while(r<s.length()){
+            char a=s.charAt(r++);
+            sm.put(a,sm.getOrDefault(a,0)+1);
+            char d=s.charAt(l++);
+            sm.put(d,sm.get(d)-1);
+            if(sm.get(d)==0)sm.remove(d);
+            if(sm.equals(pm))res.add(l);
+
+        }
+        return res;
+    }
+}
