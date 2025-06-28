@@ -1,0 +1,73 @@
+Given a sequence of n strings, check for the following:
+1. If two adjacent similar words come together, they destroy each other.
+2. If the first and last word of the sequence are the same after all possible
+adjacent destructions, they also destroy each other.
+3. Repeat this process until no more destructions are possible.
+4. Finally, print the number of words left in the sequence.
+Example 1:
+Input:
+ab aa aa bcd ab
+Output:
+1
+Example 2:
+Input:
+tom jerry tom jerry jerry
+Output:
+1
+
+
+CODING IN JAVA
+
+TIME COMPLEXITY is O(n^2)
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner sc=new Scanner(System.in);
+		ArrayList<String> s=new ArrayList<>();
+		int n=sc.nextInt();
+		sc.nextLine();
+		for(int i=0;i<n;i++){
+		    s.add(sc.nextLine()); 
+		}
+		for(int i=0;i<s.size();){
+		    if(i+1<s.size() && s.get(i).equals(s.get(i+1))){
+		        s.remove(s.get(i));
+		        s.remove(s.get(i));
+		        continue;
+		    }
+		    i++;
+		}
+		    if(s.size()>=2 && s.get(0).equals(s.get(1))){
+		        s.remove(s.get(0));
+		        s.remove(s.get(0));
+		    }
+		System.out.print(s.size());
+	}
+}
+
+in stack
+
+Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.nextLine();
+        Stack<String> stack = new Stack<>();
+        for (int i = 0; i < n; i++) {
+            String word = sc.nextLine();
+            if (!stack.isEmpty() && stack.peek().equals(word)) {
+                stack.pop();
+            } else {
+                stack.push(word);
+            }
+        }
+        // Step 2: Check first and last words
+        if (stack.size() >= 2) {
+            String first = stack.firstElement();     
+            String last = stack.peek();             
+
+            if (first.equals(last)) {
+                stack.remove(0); 
+                stack.pop();    
+            }
+        }
+        System.out.println(stack.size());
