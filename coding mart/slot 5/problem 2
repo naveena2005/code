@@ -1,0 +1,40 @@
+LEETCODE 997
+
+In a town, there are n people labeled from 1 to n. There is a rumor that one of these
+people is secretly the town judge.
+The town judge is defined by two rules:
+The town judge trusts nobody.
+Everybody else trusts the town judge.
+There must be exactly one person that satisfies both conditions for them to be the
+town judge.
+You are given a list trust, where trust[i] = [a, b] indicates that person a trusts person b.
+Your task is to return the label of the town judge, if one exists, or return -1 if no such
+person exists.
+
+Input Format
+An integer n — the number of people in the town (labeled from 1 to n).
+A list of pairs trust, where each pair [a, b] means person a trusts person b.
+
+CODING
+
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+        if(n==1)return 1;
+        int[] in=new int[n+1];
+        int[] out=new int[n+1];
+        for(int[] t:trust){
+            int a=t[0],b=t[1];
+            out[a]++;
+            in[b]++;
+        }
+        for(int i=0;i<=n;i++){
+            if(in[i]==n-1 && out[i]==0)return i;
+        }
+        return -1;
+    }
+}
+
+TIME COMPLEXITY is O(m + n)
+Where:
+m = number of trust pairs
+n = number of people
