@@ -1,0 +1,51 @@
+You have a row of n cities, some of which can have power plants (1) while others cannot (0).
+A power plant at any city can supply electricity to itself and up to k-1 cities on both sides.
+Find the minimum number of power plants required to supply electricity to all cities. If it is not
+possible, return -1.
+Example 1: Possible to Cover All Cities
+Input:
+6 2
+0 1 1 1 1 0
+Explanation:
+Place a power plant at city 1 → Covers cities 0, 1, and 2.
+Place another at city 4 → Covers cities 3, 4, and 5.
+All cities are covered with 2 power plants.
+Output:
+2
+
+CODING
+
+import java.util.*;
+
+public class PowerPlantPlacement {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();     // Number of cities
+        int k = sc.nextInt();     // Power plant range
+        int[] cities = new int[n];
+        for (int i = 0; i < n; i++) {
+            cities[i] = sc.nextInt();
+        }
+        List<Integer> result = new ArrayList<>();
+        int i = 0;
+        while (i < n) {
+            int plantIndex = -1;
+            // Check range [i - (k - 1), i + (k - 1)]
+            for (int j = Math.min(n - 1, i + k - 1); j >= Math.max(0, i - k + 1); j--) {
+                if (cities[j] == 1) {
+                    plantIndex = j;
+                    break;
+                }
+            }
+            if (plantIndex == -1) {
+                System.out.println("-1");
+                return;
+            }
+            result.add(plantIndex);
+            i = plantIndex + k;
+        }
+        for (int pos : result) {
+            System.out.print(pos + " ");
+        }
+    }
+}
