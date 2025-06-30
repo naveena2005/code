@@ -1,0 +1,58 @@
+Second most repeated string in a sequence
+Given a sequence of N strings, the goal is to determine the second most
+frequently occurring string in the sequence arr[]. If no second most
+repeated string exists, return an empty string ("").
+● There will always be exactly one second most repeated string.
+● If all strings have the same frequency or if there is only one unique
+string, return "".
+Example 1:
+Input:
+N = 6
+arr[] = {aaa, bbb, ccc, bbb, aaa, aaa}
+Output: bbb
+Explanation: "bbb" is the second most
+occurring string with frequency 2.
+
+
+CODING
+
+import java.util.*;
+
+public class SecondMostFrequent {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        sc.nextLine();
+
+        String[] arr = new String[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextLine();
+        }
+        Map<String, Integer> map = new HashMap<>();
+        for (String s : arr) {
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
+        String first = "", second = "";
+        int max1 = 0, max2 = 0;
+        for (String key : map.keySet()) {
+            int freq = map.get(key);
+
+            if (freq > max1) {
+                max2 = max1;
+                second = first;
+
+                max1 = freq;
+                first = key;
+            } else if (freq > max2 && freq < max1) {
+                max2 = freq;
+                second = key;
+            }
+        }
+        if (second.equals("")) {
+            System.out.println("");
+        } else {
+            System.out.println(second);
+        }
+    }
+}
