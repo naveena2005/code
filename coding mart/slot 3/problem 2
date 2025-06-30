@@ -1,0 +1,45 @@
+You are given a list of numeric strings. A valid pair of two strings is one where their combined
+digits (concatenated in any order) include all digits from 0 to 9 at least once.
+Your task is to find the total number of such valid pairs in the given list.
+Example 1
+Input:
+["9823", "456701", "135", "68", "90"]
+Explanation:
+Pair ("9823", "456701") → "9823456701" ✅ (Contains all digits 0-9)
+Pair ("135", "456701") → "135456701" ❌ (Missing 8, 9)
+Only one valid pair exists.
+Output:
+1
+
+CODING
+
+import java.util.*;
+public class ValidDigitPairsWithMap {
+    public static void main(String[] args) {
+        String[] arr = {"9823", "456701", "135", "68", "90"};
+        int n = arr.length;
+        int count = 0;
+        List<Set<Character>> digitList = new ArrayList<>();
+
+        for (String str : arr) {
+            Set<Character> digitSet = new HashSet<>();
+            for (char ch : str.toCharArray()) {
+                digitSet.add(ch);
+            }
+            digitList.add(digitSet);
+        }
+        // Step 2: Compare all unique pairs (i, j)
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                Set<Character> combined = new HashSet<>(digitList.get(i)); // Copy i's digits
+                combined.addAll(digitList.get(j));                         // Merge with j's digits
+
+                if (combined.size() == 10) { 
+                    count++;
+                }
+            }
+        }
+
+        System.out.println(count);
+    }
+}
